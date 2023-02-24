@@ -6,7 +6,7 @@ isValidLength('проверяемая строка', 10);
 const isPalindrome = (string) => {
   let newString = '';
   for (let i = string.length - 1; i >= 0; i--) {
-    newString += string[i];
+    newString += string.at(i);
   }
   return string.toLowerCase().replaceAll(' ', '') === newString.toLowerCase().replaceAll(' ', '');
 };
@@ -18,8 +18,8 @@ const extractNumbersFromString = (value) => {
   value = String(value);
   let result = '';
   for (let i = 0; i <= value.length; i++) {
-    if (parseInt(value[i], 10) >= 0) {
-      result += value[i];
+    if (parseInt(value.at(i), 10) >= 0) {
+      result += value.at(i);
     }
   }
   return parseInt(result, 10);
@@ -36,7 +36,7 @@ const failAddress = (string, minLength, addString) => {
     let newAddString = '';
     for (let i = 0; i < addString.length; i++) {
       if (newAddString.length + newString.length + string.length < minLength) {
-        newAddString += addString[i];
+        newAddString += addString.at(i);
       }
     }
     newString = newAddString + newString;
