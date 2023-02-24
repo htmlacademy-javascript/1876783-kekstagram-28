@@ -89,4 +89,3 @@ const createPhoto = () => ({
 });
 
 const descriptionPhotos = Array.from({ length: PHOTOS }, createPhoto);
-console.log(descriptionPhotos);
