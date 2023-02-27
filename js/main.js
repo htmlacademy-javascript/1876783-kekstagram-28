@@ -72,4 +72,4 @@ const generatePhotoGallery = (count) => {
   }
   return photos;
 };
-console.log(generatePhotoGallery(25));
+generatePhotoGallery(25);
