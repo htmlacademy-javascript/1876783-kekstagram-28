@@ -1,4 +1,4 @@
-const DESCRIPTION = [
+const photoDescriptions = [
   'Если смогу, я сделаю это. Конец истории.',
   'Моя жизнь меняется, потому что меняю ее я.',
   'Всегда начинайте свой день с хороших людей и кофе.',
@@ -6,7 +6,7 @@ const DESCRIPTION = [
   'Утром только одна хорошая мысль меняет смысл целого дня.'
 ];
 
-const MESSAGE = [
+const commentMessages = [
   'Всё отлично!',
   'В целом всё неплохо. Но не всё.',
   'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
@@ -15,7 +15,7 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-const NAME = [
+const commentNames = [
   'Анастасия',
   'Арина',
   'Иван',
@@ -25,9 +25,7 @@ const NAME = [
   'Константин',
   'Владимир'
 ];
-
-const PHOTOS = 25;
-const AVATAR = 6;
+const numberOfAvatars = 6;
 
 const getRandomInteger = (min, max) => {
   const lower = Math.ceil(Math.min(min, max));
@@ -36,56 +34,44 @@ const getRandomInteger = (min, max) => {
   return Math.floor(result);
 };
 
-const getRandomIntegerFromGenerator = (min, max) => {
-  const previousValues = [];
+const createGenerator = () => {
+  let lastGeneratedId = 0;
 
   return function () {
-    for (let i = min; i <= max; i++) {
-      let currentValue = getRandomInteger(min, max);
-      if (previousValues.length >= (max - min + 1)) {
-        return null;
-      }
-      while (previousValues.includes(currentValue)) {
-        currentValue = getRandomInteger(min, max);
-      }
-      previousValues.push(currentValue);
-    }
-    return previousValues;
+    lastGeneratedId += 1;
+    return lastGeneratedId;
   };
 };
 
-const getLastElement = (arr) => {
-  const arrLastElement = arr[arr.length - 1];
-  arr.pop();
-  return arrLastElement;
+const generateCommentId = createGenerator();
+
+const generateComment = function (i) {
+  return {
+    id: generateCommentId(i),
+    avatar: `img/avatar-${getRandomInteger(1, numberOfAvatars)}.svg`,
+    message: commentMessages[getRandomInteger(0, commentMessages.length - 1)],
+    name: commentNames[getRandomInteger(0, commentNames.length - 1)],
+  };
 };
 
-const arrRandomPhotoId = (getRandomIntegerFromGenerator(1, PHOTOS)());
-const arrRandomPhotoUrl = (getRandomIntegerFromGenerator(1, PHOTOS)());
-const getRandomArrayElement = (elements) => elements[getRandomInteger(0, elements.length - 1)];
-// генерирует количество комментариев и их id
-let commentId = 1;
-const getCommentsGenerator = ()=> {
-  const maxComment = getRandomInteger(1, 2);
-  const arrComments = [];
-  for (let i = 1; i <= maxComment; i++) {
-    arrComments.push({
-      id: commentId,
-      avatar: `img/avatar-${getRandomInteger(1, AVATAR)}.svg`,
-      message: getRandomArrayElement(MESSAGE),
-      name: getRandomArrayElement(NAME)
-    });
-    commentId ++;
-  }
-  return arrComments;
-};
-// описание 1 фото
-const createPhoto = () => ({
-  id: getLastElement(arrRandomPhotoId),
-  url: `photos/${getLastElement(arrRandomPhotoUrl)}.jpg`,
-  description: getRandomArrayElement(DESCRIPTION),
-  likes: getRandomInteger(15, 200),
-  comments: getCommentsGenerator()
+const generatePhoto = (i) => ({
+  id: i,
+  url: `photos/${i}.jpg`,
+  description: photoDescriptions[getRandomInteger(0, photoDescriptions.length - 1)],
+  likes: getRandomInteger(15, 200)
 });
 
-const descriptionPhotos = Array.from({ length: PHOTOS }, createPhoto);
+const generatePhotoGallery = (count) => {
+  const photos = [];
+  for (let i = 1; i <= count; i++) {
+    const photo = generatePhoto(i);
+    const arrComments = [];
+    for (let j = 1; j <= (getRandomInteger(1, 3)); j++) {
+      arrComments.push(generateComment(i));
+    }
+    photo.comments = arrComments;
+    photos.push(photo);
+  }
+  return photos;
+};
+generatePhotoGallery(25);
