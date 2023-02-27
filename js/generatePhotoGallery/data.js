@@ -1,3 +1,5 @@
+import {getRandomInteger, generateCommentId} from './generate-photo-gallery.js';
+
 const photoDescriptions = [
   'Если смогу, я сделаю это. Конец истории.',
   'Моя жизнь меняется, потому что меняю ее я.',
@@ -25,25 +27,8 @@ const commentNames = [
   'Константин',
   'Владимир'
 ];
+
 const numberOfAvatars = 6;
-
-const getRandomInteger = (min, max) => {
-  const lower = Math.ceil(Math.min(min, max));
-  const upper = Math.floor(Math.max(min, max));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-const getUniqueInteger = () => {
-  let lastGeneratedInteger = 0;
-
-  return function () {
-    lastGeneratedInteger += 1;
-    return lastGeneratedInteger;
-  };
-};
-
-const generateCommentId = getUniqueInteger();
 
 const generateComment = () => ({
   id: generateCommentId(),
@@ -56,20 +41,20 @@ const generatePhoto = (integer) => ({
   id: integer,
   url: `photos/${integer}.jpg`,
   description: photoDescriptions[getRandomInteger(0, photoDescriptions.length - 1)],
-  likes: getRandomInteger(15, 200)
+  likes: getRandomInteger(15, 200),
+  comments: []
 });
 
 const generatePhotoGallery = (count) => {
   const photos = [];
   for (let i = 1; i <= count; i++) {
     const photo = generatePhoto(i);
-    const comments = [];
     for (let j = 1; j <= (getRandomInteger(1, 3)); j++) {
-      comments.push(generateComment());
+      photo.comments.push(generateComment());
     }
-    photo.comments = comments;
     photos.push(photo);
   }
   return photos;
 };
-generatePhotoGallery(25);
+
+export {generatePhotoGallery};
