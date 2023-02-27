@@ -34,16 +34,16 @@ const getRandomInteger = (min, max) => {
   return Math.floor(result);
 };
 
-const createGenerator = () => {
-  let lastGeneratedId = 0;
+const getUniqueNumber = () => {
+  let lastGeneratedNumber = 0;
 
   return function () {
-    lastGeneratedId += 1;
-    return lastGeneratedId;
+    lastGeneratedNumber += 1;
+    return lastGeneratedNumber;
   };
 };
 
-const generateCommentId = createGenerator();
+const generateCommentId = getUniqueNumber();
 
 const generateComment = function (i) {
   return {
@@ -65,11 +65,11 @@ const generatePhotoGallery = (count) => {
   const photos = [];
   for (let i = 1; i <= count; i++) {
     const photo = generatePhoto(i);
-    const arrComments = [];
+    const comments = [];
     for (let j = 1; j <= (getRandomInteger(1, 3)); j++) {
-      arrComments.push(generateComment(i));
+      comments.push(generateComment(i));
     }
-    photo.comments = arrComments;
+    photo.comments = comments;
     photos.push(photo);
   }
   return photos;
