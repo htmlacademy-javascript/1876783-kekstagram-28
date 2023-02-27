@@ -34,29 +34,27 @@ const getRandomInteger = (min, max) => {
   return Math.floor(result);
 };
 
-const getUniqueNumber = () => {
-  let lastGeneratedNumber = 0;
+const getUniqueInteger = () => {
+  let lastGeneratedInteger = 0;
 
   return function () {
-    lastGeneratedNumber += 1;
-    return lastGeneratedNumber;
+    lastGeneratedInteger += 1;
+    return lastGeneratedInteger;
   };
 };
 
-const generateCommentId = getUniqueNumber();
+const generateCommentId = getUniqueInteger();
 
-const generateComment = function (i) {
-  return {
-    id: generateCommentId(i),
-    avatar: `img/avatar-${getRandomInteger(1, numberOfAvatars)}.svg`,
-    message: commentMessages[getRandomInteger(0, commentMessages.length - 1)],
-    name: commentNames[getRandomInteger(0, commentNames.length - 1)],
-  };
-};
+const generateComment = () => ({
+  id: generateCommentId(),
+  avatar: `img/avatar-${getRandomInteger(1, numberOfAvatars)}.svg`,
+  message: `${commentMessages[getRandomInteger(0, commentMessages.length - 1)]} ${commentMessages[getRandomInteger(0, commentMessages.length - 1)]}`,
+  name: commentNames[getRandomInteger(0, commentNames.length - 1)],
+});
 
-const generatePhoto = (i) => ({
-  id: i,
-  url: `photos/${i}.jpg`,
+const generatePhoto = (integer) => ({
+  id: integer,
+  url: `photos/${integer}.jpg`,
   description: photoDescriptions[getRandomInteger(0, photoDescriptions.length - 1)],
   likes: getRandomInteger(15, 200)
 });
@@ -67,11 +65,11 @@ const generatePhotoGallery = (count) => {
     const photo = generatePhoto(i);
     const comments = [];
     for (let j = 1; j <= (getRandomInteger(1, 3)); j++) {
-      comments.push(generateComment(i));
+      comments.push(generateComment());
     }
     photo.comments = comments;
     photos.push(photo);
   }
   return photos;
 };
-generatePhotoGallery(25);
+console.log(generatePhotoGallery(25));
