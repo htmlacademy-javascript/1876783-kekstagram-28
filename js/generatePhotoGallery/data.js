@@ -26,4 +26,4 @@ const commentNames = [
   'Владимир'
 ];
 
-export {photoDescriptions, commentMessages, commentNames};
+export { photoDescriptions, commentMessages, commentNames };

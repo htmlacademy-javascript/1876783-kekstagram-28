@@ -1,4 +1,4 @@
-import {getRandomInteger, generatePhoto, generateComment} from './generate-photo-gallery.js';
+import { getRandomInteger, generatePhoto, generateComment } from './generate-photo-gallery.js';
 
 const generatePhotoGallery = (count) => {
   const photos = [];
@@ -12,6 +12,4 @@ const generatePhotoGallery = (count) => {
   return photos;
 };
 
-export {generatePhotoGallery};
-
-
+export { generatePhotoGallery };

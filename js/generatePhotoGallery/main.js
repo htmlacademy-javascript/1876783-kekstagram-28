@@ -1,3 +1,3 @@
-import {generatePhotoGallery} from './index.js';
+import { generatePhotoGallery } from './index.js';
 
 generatePhotoGallery(25);

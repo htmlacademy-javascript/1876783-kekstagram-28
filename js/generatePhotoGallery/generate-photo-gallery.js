@@ -1,4 +1,4 @@
-import {photoDescriptions, commentMessages, commentNames} from './data.js';
+import { photoDescriptions, commentMessages, commentNames } from './data.js';
 
 const numberOfAvatars = 6;
 
@@ -35,4 +35,4 @@ const generatePhoto = (integer) => ({
   comments: []
 });
 
-export {getRandomInteger, generateComment, generatePhoto};
+export { getRandomInteger, generateComment, generatePhoto };
