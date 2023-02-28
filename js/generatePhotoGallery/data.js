@@ -1,5 +1,3 @@
-import {getRandomInteger, generateCommentId} from './generate-photo-gallery.js';
-
 const photoDescriptions = [
   'Если смогу, я сделаю это. Конец истории.',
   'Моя жизнь меняется, потому что меняю ее я.',
@@ -28,33 +26,4 @@ const commentNames = [
   'Владимир'
 ];
 
-const numberOfAvatars = 6;
-
-const generateComment = () => ({
-  id: generateCommentId(),
-  avatar: `img/avatar-${getRandomInteger(1, numberOfAvatars)}.svg`,
-  message: `${commentMessages[getRandomInteger(0, commentMessages.length - 1)]} ${commentMessages[getRandomInteger(0, commentMessages.length - 1)]}`,
-  name: commentNames[getRandomInteger(0, commentNames.length - 1)],
-});
-
-const generatePhoto = (integer) => ({
-  id: integer,
-  url: `photos/${integer}.jpg`,
-  description: photoDescriptions[getRandomInteger(0, photoDescriptions.length - 1)],
-  likes: getRandomInteger(15, 200),
-  comments: []
-});
-
-const generatePhotoGallery = (count) => {
-  const photos = [];
-  for (let i = 1; i <= count; i++) {
-    const photo = generatePhoto(i);
-    for (let j = 1; j <= (getRandomInteger(1, 3)); j++) {
-      photo.comments.push(generateComment());
-    }
-    photos.push(photo);
-  }
-  return photos;
-};
-
-export {generatePhotoGallery};
+export {photoDescriptions, commentMessages, commentNames};
