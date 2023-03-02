@@ -1,8 +1,3 @@
-const COUNT_PHOTOS = 25;
-const COUNT_AVATARS = 6;
-const COUNT_MIN_LIKES = 15;
-const COUNT_MAX_LIKES = 200;
-
 const PHOTO_DESCRIPTIONS = [
   'Если смогу, я сделаю это. Конец истории.',
   'Моя жизнь меняется, потому что меняю ее я.',
@@ -31,7 +26,4 @@ const COMMENT_NAMES = [
   'Владимир'
 ];
 
-export {
-  COUNT_PHOTOS, COUNT_AVATARS, COUNT_MIN_LIKES, COUNT_MAX_LIKES,
-  PHOTO_DESCRIPTIONS, COMMENT_MESSAGES, COMMENT_NAMES
-};
+export { PHOTO_DESCRIPTIONS, COMMENT_MESSAGES, COMMENT_NAMES };

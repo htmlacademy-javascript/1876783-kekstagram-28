@@ -5,7 +5,7 @@ const getRandomInteger = (min, max) => {
   return Math.floor(result);
 };
 
-function getRandomUnicueInteger(min, max) {
+function getRandomUniqueInteger(min, max) {
   const previousValues = [];
 
   return function () {
@@ -30,4 +30,4 @@ const getUniqueInteger = () => {
   };
 };
 
-export { getRandomInteger, getRandomUnicueInteger, getUniqueInteger };
+export { getRandomInteger, getRandomUniqueInteger, getUniqueInteger };

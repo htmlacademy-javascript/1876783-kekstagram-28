@@ -1,12 +1,13 @@
-import { getRandomInteger, getRandomUnicueInteger, getUniqueInteger } from '../util.js';
+import { getRandomInteger, getRandomUniqueInteger, getUniqueInteger } from '../util.js';
+import { PHOTO_DESCRIPTIONS, COMMENT_MESSAGES, COMMENT_NAMES } from './data.js';
 
-import {
-  COUNT_PHOTOS, COUNT_AVATARS, COUNT_MIN_LIKES, COUNT_MAX_LIKES,
-  PHOTO_DESCRIPTIONS, COMMENT_MESSAGES, COMMENT_NAMES
-} from './data.js';
+const COUNT_PHOTOS = 25;
+const COUNT_AVATARS = 6;
+const COUNT_MIN_LIKES = 15;
+const COUNT_MAX_LIKES = 200;
 
-const generatePhotoId = getRandomUnicueInteger(1, COUNT_PHOTOS);
-const generatePhotoUrl = getRandomUnicueInteger(1, COUNT_PHOTOS);
+const generatePhotoId = getRandomUniqueInteger(1, COUNT_PHOTOS);
+const generatePhotoUrl = getRandomUniqueInteger(1, COUNT_PHOTOS);
 const generateCommentId = getUniqueInteger();
 
 const generateCommentMessage = () => {
