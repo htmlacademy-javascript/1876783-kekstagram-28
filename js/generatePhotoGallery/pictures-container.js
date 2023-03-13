@@ -3,11 +3,11 @@ import { generatePhotoGallery } from './generate-photo-gallery.js';
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
 
-const photoGallery = generatePhotoGallery(25);
+const photogallery = generatePhotoGallery(25);
 
 const photoFragment = document.createDocumentFragment();
 
-photoGallery.forEach(({ url, comments, likes }) => {
+photogallery.forEach(({ url, comments, likes }) => {
   const picture = pictureTemplate.cloneNode(true);
   picture.querySelector('.picture__img').src = url;
   picture.querySelector('.picture__comments').textContent = comments.length;
@@ -15,3 +15,5 @@ photoGallery.forEach(({ url, comments, likes }) => {
   photoFragment.append(picture);
 });
 picturesContainer.append(photoFragment);
+
+export { photogallery };
