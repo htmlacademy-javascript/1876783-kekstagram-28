@@ -30,4 +30,18 @@ const getUniqueInteger = () => {
   };
 };
 
-export { getRandomInteger, getRandomUniqueInteger, getUniqueInteger };
+const makeElement = (tegName, className, text) => {
+  const element = document.createElement(tegName);
+  element.classList.add(className);
+  if (text) {
+    element.textContent = text;
+  }
+  return element;
+};
+
+export {
+  getRandomInteger,
+  getRandomUniqueInteger,
+  getUniqueInteger,
+  makeElement
+};

@@ -15,3 +15,5 @@ photogallery.forEach(({ url, comments, likes }) => {
   photoFragment.append(picture);
 });
 picturesContainer.append(photoFragment);
+
+export { photogallery };
