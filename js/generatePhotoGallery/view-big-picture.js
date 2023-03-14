@@ -1,4 +1,3 @@
-import { isEscapeKey, isEnterKey } from '../util.js';
 import { photogallery } from './pictures-container.js';
 import { createPhoto } from './create-big-photo.js';
 import { createComments } from './create-comments.js';
@@ -10,6 +9,10 @@ const socialCaption = bigPicture.querySelector('.social__caption');
 const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const body = document.querySelector('body');
+
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+const isEnterKey = (evt) => evt.key === 'Enter';
 
 const onDocumentKeydown = (evt) => {
   if (isEscapeKey(evt)) {
@@ -34,8 +37,7 @@ function closeBigPicture() {
 
 pictures.forEach((picture, index) => {
   picture.addEventListener('click', (evt) => {
-    const currentComments = photogallery[index].comments;
-    const currentDescription = photogallery[index].description;
+    const { comments: currentComments, description: currentDescription } = photogallery[index];
     openBigPicture();
     createPhoto(evt);
     socialCaption.textContent = currentDescription;

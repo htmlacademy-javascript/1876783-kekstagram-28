@@ -30,10 +30,6 @@ const getUniqueInteger = () => {
   };
 };
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
-
-const isEnterKey = (evt) => evt.key === 'Enter';
-
 const makeElement = (tegName, className, text) => {
   const element = document.createElement(tegName);
   element.classList.add(className);
@@ -46,7 +42,6 @@ const makeElement = (tegName, className, text) => {
 export {
   getRandomInteger,
   getRandomUniqueInteger,
-  getUniqueInteger, isEscapeKey,
-  isEnterKey,
+  getUniqueInteger,
   makeElement
 };
