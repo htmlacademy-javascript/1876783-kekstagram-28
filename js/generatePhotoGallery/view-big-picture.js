@@ -10,12 +10,8 @@ const socialCommentCount = bigPicture.querySelector('.social__comment-count');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const body = document.querySelector('body');
 
-const isEscapeKey = (evt) => evt.key === 'Escape';
-
-const isEnterKey = (evt) => evt.key === 'Enter';
-
 const onDocumentKeydown = (evt) => {
-  if (isEscapeKey(evt)) {
+  if (evt.key === 'Escape') {
     evt.preventDefault();
     closeBigPicture();
   }
@@ -50,7 +46,7 @@ bigPictureCancel.addEventListener('click', () => {
 });
 
 bigPictureCancel.addEventListener('keydown', (evt) => {
-  if (isEnterKey(evt)) {
+  if (evt.key === 'Enter') {
     closeBigPicture();
   }
 });
