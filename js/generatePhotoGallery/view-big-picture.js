@@ -1,13 +1,11 @@
 import { photogallery } from './pictures-container.js';
 import { createPhoto } from './create-big-photo.js';
-import { createComments } from './create-comments.js';
+import { createComments, showComments } from './create-comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const pictures = document.querySelectorAll('.picture');
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
 const socialCaption = bigPicture.querySelector('.social__caption');
-const socialCommentCount = bigPicture.querySelector('.social__comment-count');
-const commentsLoader = bigPicture.querySelector('.comments-loader');
 const body = document.querySelector('body');
 
 const onDocumentKeydown = (evt) => {
@@ -20,8 +18,6 @@ const onDocumentKeydown = (evt) => {
 function openBigPicture() {
   bigPicture.classList.remove('hidden');
   document.addEventListener('keydown', onDocumentKeydown);
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
   body.classList.add('modal-open');
 }
 
@@ -38,6 +34,7 @@ pictures.forEach((picture, index) => {
     createPhoto(evt);
     socialCaption.textContent = currentDescription;
     createComments(currentComments);
+    showComments();
   });
 });
 
