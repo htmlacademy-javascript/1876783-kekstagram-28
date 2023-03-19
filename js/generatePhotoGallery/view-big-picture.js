@@ -1,6 +1,6 @@
 import { photogallery } from './pictures-container.js';
 import { createPhoto } from './create-big-photo.js';
-import { createComments, showComments } from './create-comments.js';
+import { showComments, hiddenComments } from './create-comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const pictures = document.querySelectorAll('.picture');
@@ -25,6 +25,7 @@ function closeBigPicture() {
   bigPicture.classList.add('hidden');
   document.removeEventListener('keydown', onDocumentKeydown);
   body.classList.remove('modal-open');
+  hiddenComments();
 }
 
 pictures.forEach((picture, index) => {
@@ -33,8 +34,7 @@ pictures.forEach((picture, index) => {
     openBigPicture();
     createPhoto(evt);
     socialCaption.textContent = currentDescription;
-    createComments(currentComments);
-    showComments();
+    showComments(currentComments);
   });
 });
 
