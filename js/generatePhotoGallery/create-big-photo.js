@@ -8,10 +8,6 @@ const createPhoto = (evt) => {
   const likesCount = bigPictureInfo.querySelector('.likes-count');
   const likes = evt.target.closest('.picture').querySelector('.picture__likes');
   likesCount.textContent = likes.innerHTML;
-
-  const commentsCount = bigPictureInfo.querySelector('.comments-count');
-  const comments = evt.target.closest('.picture').querySelector('.picture__comments');
-  commentsCount.textContent = comments.innerHTML;
 };
 
 export { createPhoto };
