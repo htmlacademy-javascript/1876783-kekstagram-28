@@ -1,6 +1,6 @@
 import { scaleForm } from './scale.js';
 
-const VALID_HASHTAG = /^#[a-zа-яё0-9]{1,19}$/i;
+const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_DESCRIPTION_LENGTH = 140;
 const MAX_HASHTAGS_COUNT = 5;
 const imgUpload = document.querySelector('#upload-file');
@@ -63,7 +63,7 @@ const hashtagsValidCount = (hashtags) => hashtags.length <= MAX_HASHTAGS_COUNT;
 
 const hashtagUnique = (hashtags) => hashtags.length === new Set(hashtags).size;
 
-const isHashtagValid = (hashtag) => VALID_HASHTAG.test(hashtag);
+const isHashtagValid = (hashtag) => HASHTAG_REGEX.test(hashtag);
 
 const validateHashtags = (value) => {
   const hashtags = value

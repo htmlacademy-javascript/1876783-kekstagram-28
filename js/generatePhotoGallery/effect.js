@@ -48,8 +48,8 @@ const EFFECTS = [
     unit: '',
   }
 ];
-const DEFOULT_EFFECT = EFFECTS[0];
-let currentEffect = DEFOULT_EFFECT;
+const DEFAULT_EFFECT = EFFECTS[0];
+let currentEffect = DEFAULT_EFFECT;
 
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
@@ -57,7 +57,7 @@ const imgEffects = document.querySelector('.effects');
 const imgElement = document.querySelector('.img-upload__preview img');
 const effectLevelValue = document.querySelector('.effect-level__value');
 
-const isDefoult = () => currentEffect === DEFOULT_EFFECT;
+const isDefoult = () => currentEffect === DEFAULT_EFFECT;
 
 const showSlider = () => sliderContainer.classList.remove('hidden');
 
@@ -92,18 +92,19 @@ const onEffectsChange = (evt) => {
 
 const onSliderUpdate = () => {
   const sliderValue = sliderElement.noUiSlider.get();
-  imgElement.style.filter = isDefoult() ? DEFOULT_EFFECT.style :
-    `${currentEffect.style}(${sliderValue}${currentEffect.unit})`;
+  imgElement.style.filter = isDefoult()
+    ? DEFAULT_EFFECT.style
+    : `${currentEffect.style}(${sliderValue}${currentEffect.unit})`;
   effectLevelValue.value = sliderValue;
 };
 
 noUiSlider.create(sliderElement, {
   range: {
-    min: DEFOULT_EFFECT.min,
-    max: DEFOULT_EFFECT.max,
+    min: DEFAULT_EFFECT.min,
+    max: DEFAULT_EFFECT.max,
   },
-  start: DEFOULT_EFFECT.max,
-  step: DEFOULT_EFFECT.step,
+  start: DEFAULT_EFFECT.max,
+  step: DEFAULT_EFFECT.step,
   connect: 'lower',
 });
 

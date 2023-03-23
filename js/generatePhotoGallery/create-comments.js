@@ -1,8 +1,8 @@
 import { makeElement } from '../util.js';
 
 const COUNT_PER_SHOW = 5;
-const WIDTH_PICTURE = 35;
-const HEIGHT_PICTURE = 35;
+const PICTURE_WIDTH = 35;
+const PICTURE_HEIGHT = 35;
 
 
 const socialComments = document.querySelector('.social__comments');
@@ -18,8 +18,8 @@ const createComments = ({ avatar, name, message }) => {
   const picture = makeElement('img', 'social__picture');
   picture.src = avatar;
   picture.alt = name;
-  picture.width = WIDTH_PICTURE;
-  picture.height = HEIGHT_PICTURE;
+  picture.width = PICTURE_WIDTH;
+  picture.height = PICTURE_HEIGHT;
   listItem.append(picture);
 
   const commentText = makeElement('p', 'social__text', message);
