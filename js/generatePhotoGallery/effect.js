@@ -57,7 +57,7 @@ const imgEffects = document.querySelector('.effects');
 const imgElement = document.querySelector('.img-upload__preview img');
 const effectLevelValue = document.querySelector('.effect-level__value');
 
-const isDefoult = () => currentEffect === DEFAULT_EFFECT;
+const isDefault = () => currentEffect === DEFAULT_EFFECT;
 
 const showSlider = () => sliderContainer.classList.remove('hidden');
 
@@ -74,7 +74,7 @@ const updateSlider = () => {
     connect: 'lower'
   });
 
-  if (isDefoult()) {
+  if (isDefault()) {
     hideSlider();
   } else {
     showSlider();
@@ -92,7 +92,7 @@ const onEffectsChange = (evt) => {
 
 const onSliderUpdate = () => {
   const sliderValue = sliderElement.noUiSlider.get();
-  imgElement.style.filter = isDefoult()
+  imgElement.style.filter = isDefault()
     ? DEFAULT_EFFECT.style
     : `${currentEffect.style}(${sliderValue}${currentEffect.unit})`;
   effectLevelValue.value = sliderValue;
