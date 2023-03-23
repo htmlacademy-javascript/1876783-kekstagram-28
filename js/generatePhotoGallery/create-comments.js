@@ -1,31 +1,35 @@
 import { makeElement } from '../util.js';
 
+const COUNT_PER_SHOW = 5;
+const WIDTH_PICTURE = 35;
+const HEIGHT_PICTURE = 35;
+
+
 const socialComments = document.querySelector('.social__comments');
 const commentsLoaderButton = document.querySelector('.comments-loader');
 const socialCommentCount = document.querySelector('.social__comment-count');
 let showenComments = 0;
 let comments = [];
 
-const createComments = (comment) => {
+const createComments = ({ avatar, name, message }) => {
   socialComments.innerHTML = '';
   const listItem = makeElement('li', 'social__comment');
 
   const picture = makeElement('img', 'social__picture');
-  picture.src = comment.avatar;
-  picture.alt = comment.name;
-  picture.width = 35;
-  picture.height = 35;
+  picture.src = avatar;
+  picture.alt = name;
+  picture.width = WIDTH_PICTURE;
+  picture.height = HEIGHT_PICTURE;
   listItem.append(picture);
 
-  const commentText = makeElement('p', 'social__text', comment.message);
+  const commentText = makeElement('p', 'social__text', message);
   listItem.append(commentText);
   return listItem;
 };
 
 const showComments = (currentComments) => {
   comments = currentComments;
-  const countPerShow = 5;
-  showenComments += countPerShow;
+  showenComments += COUNT_PER_SHOW;
   if (showenComments >= comments.length) {
     commentsLoaderButton.classList.add('hidden');
     showenComments = comments.length;
@@ -43,9 +47,7 @@ const showComments = (currentComments) => {
   socialCommentCount.textContent = `${showenComments} из ${comments.length} комментариев`;
 };
 
-commentsLoaderButton.addEventListener('click', () => {
-  showComments(comments);
-});
+commentsLoaderButton.addEventListener('click', () => showComments(comments));
 
 const hiddenComments = () => {
   showenComments = 0;
