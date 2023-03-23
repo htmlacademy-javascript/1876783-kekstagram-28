@@ -38,9 +38,7 @@ pictures.forEach((picture, index) => {
   });
 });
 
-bigPictureCancel.addEventListener('click', () => {
-  closeBigPicture();
-});
+bigPictureCancel.addEventListener('click', () => closeBigPicture());
 
 bigPictureCancel.addEventListener('keydown', (evt) => {
   if (evt.key === 'Enter') {
