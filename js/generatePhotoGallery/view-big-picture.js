@@ -1,9 +1,7 @@
-import { photogallery } from './pictures-container.js';
 import { createPhoto } from './create-big-photo.js';
 import { showComments, hiddenComments } from './create-comments.js';
 
 const bigPicture = document.querySelector('.big-picture');
-const pictures = document.querySelectorAll('.picture');
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
 const socialCaption = bigPicture.querySelector('.social__caption');
 const body = document.querySelector('body');
@@ -28,15 +26,18 @@ function closeBigPicture() {
   hiddenComments();
 }
 
-pictures.forEach((picture, index) => {
-  picture.addEventListener('click', (evt) => {
-    const { comments: currentComments, description: currentDescription } = photogallery[index];
-    openBigPicture();
-    createPhoto(evt);
-    socialCaption.textContent = currentDescription;
-    showComments(currentComments);
+const renderBigPicture = (photoGallery) => {
+  const pictures = document.querySelectorAll('.picture');
+  pictures.forEach((picture, index) => {
+    picture.addEventListener('click', (evt) => {
+      openBigPicture();
+      const { comments: currentComments, description: currentDescription } = photoGallery[index];
+      createPhoto(evt);
+      socialCaption.textContent = currentDescription;
+      showComments(currentComments);
+    });
   });
-});
+};
 
 bigPictureCancel.addEventListener('click', () => closeBigPicture());
 
@@ -45,3 +46,5 @@ bigPictureCancel.addEventListener('keydown', (evt) => {
     closeBigPicture();
   }
 });
+
+export { renderBigPicture };
