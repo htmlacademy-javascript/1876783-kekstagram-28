@@ -8,7 +8,7 @@ const MAX_DESCRIPTION_LENGTH = 140;
 const MAX_HASHTAGS_COUNT = 5;
 
 const SubmitButtonText = {
-  IDLE: 'Сохранить',
+  SEND: 'Сохранить',
   SENDING: 'Сохраняю...'
 };
 
@@ -49,7 +49,7 @@ const blockSubmitButton = () => {
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.IDLE;
+  submitButton.textContent = SubmitButtonText.SEND;
 };
 
 function openImgForm() {
@@ -124,47 +124,52 @@ const renderSendError = () => {
   document.querySelector('body').append(sendFragment);
 };
 
-function closeSuccess(evt) {
+function closeWindowSuccessSend(evt) {
   const success = document.querySelector('.success');
   const successButton = document.querySelector('.success__button');
+
   if (evt.target === successButton || evt.target === success || evt.key === 'Escape') {
     evt.preventDefault();
     success.remove();
-    success.removeEventListener('click', closeSuccess);
+    success.removeEventListener('click', closeWindowSuccessSend);
   }
 }
 
-function closeError(evt) {
+function closeWindowErrorSend(evt) {
   const error = document.querySelector('.error');
   const errorButton = document.querySelector('.error__button');
+
   if (evt.target === errorButton || evt.target === error || evt.key === 'Escape') {
     error.remove();
-    error.removeEventListener('click', closeError);
+    error.removeEventListener('click', closeWindowErrorSend);
   }
 }
 
-const setUserFormSubmit = (onSuccess) => {
+const submitUserForm = (onSuccess) => {
   form.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
-    if (isValid) {
-      blockSubmitButton();
-      sendData(new FormData(evt.target))
-        .then(onSuccess)
-        .then(renderSendSuccess)
-        .then(document.addEventListener('keydown', closeSuccess))
-        .then(document.addEventListener('click', closeSuccess))
-        .catch((err) => {
-          showAlert(err.message);
-        })
-        .finally(unblockSubmitButton);
-    } else {
+
+    if (!isValid) {
       renderSendError();
-      form.addEventListener('keydown', closeError);
+      form.addEventListener('keydown', closeWindowErrorSend);
       form.addEventListener('keydown', onFieldKeydown);
-      document.addEventListener('click', closeError);
+      document.addEventListener('click', closeWindowErrorSend);
+
+      return;
     }
+
+    blockSubmitButton();
+    sendData(new FormData(evt.target))
+      .then(onSuccess)
+      .then(renderSendSuccess)
+      .then(document.addEventListener('keydown', closeWindowSuccessSend))
+      .then(document.addEventListener('click', closeWindowSuccessSend))
+      .catch((err) => {
+        showAlert(err.message);
+      })
+      .finally(unblockSubmitButton);
   });
 };
 
-export { setUserFormSubmit, closeImgForm };
+export { submitUserForm, closeImgForm };
