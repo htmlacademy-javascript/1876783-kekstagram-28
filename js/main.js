@@ -1,7 +1,18 @@
-import { generatePhotoGallery } from './generatePhotoGallery/index.js';
-import './generatePhotoGallery/view-big-picture.js';
-import './generatePhotoGallery/user-form.js';
 import './generatePhotoGallery/scale.js';
 import './generatePhotoGallery/effect.js';
+import { renderPhotoGallery } from './generatePhotoGallery/pictures-container.js';
+import { submitUserForm, closeImgForm } from './generatePhotoGallery/user-form.js';
+import { renderBigPicture } from './generatePhotoGallery/view-big-picture.js';
+import { getData } from './api.js';
+import { showAlert } from './util.js';
 
-generatePhotoGallery(25);
+getData()
+  .then((pictures) => {
+    renderPhotoGallery(pictures);
+    renderBigPicture(pictures);
+  })
+  .catch((err) => {
+    showAlert(err.message);
+  });
+
+submitUserForm(closeImgForm);
