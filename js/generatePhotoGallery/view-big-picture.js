@@ -27,7 +27,9 @@ function closeBigPicture() {
 }
 
 const renderBigPicture = (photoGallery) => {
+
   const pictures = document.querySelectorAll('.picture');
+
   pictures.forEach((picture, index) => {
     picture.addEventListener('click', (evt) => {
       openBigPicture();

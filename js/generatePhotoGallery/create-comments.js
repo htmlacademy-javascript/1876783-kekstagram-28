@@ -28,6 +28,7 @@ const createComments = ({ avatar, name, message }) => {
 };
 
 const showComments = (currentComments) => {
+
   comments = currentComments;
   showenComments += COUNT_PER_SHOW;
   if (showenComments >= comments.length) {

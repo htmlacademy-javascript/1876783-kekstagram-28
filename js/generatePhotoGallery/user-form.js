@@ -8,8 +8,8 @@ const MAX_DESCRIPTION_LENGTH = 140;
 const MAX_HASHTAGS_COUNT = 5;
 
 const SubmitButtonText = {
-  SEND: 'Сохранить',
-  SENDING: 'Сохраняю...'
+  SAVE: 'Сохранить',
+  SAVING: 'Сохраняю...'
 };
 
 const imgUpload = document.querySelector('#upload-file');
@@ -44,12 +44,12 @@ const pristine = new Pristine(form, {
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
+  submitButton.textContent = SubmitButtonText.SAVING;
 };
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.SEND;
+  submitButton.textContent = SubmitButtonText.SAVE;
 };
 
 function openImgForm() {
