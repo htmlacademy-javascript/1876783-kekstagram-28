@@ -2,22 +2,22 @@ import { getSortRandomly, getSortByComments } from './index.js';
 
 const PICTURE_COUNT = 10;
 
-const Filter = {
+const FilterType = {
   DEFAULT: 'filter-default',
   RANDOM: 'filter-random',
   DISCUSSED: 'filter-discussed'
 };
 
-let currentFilter = Filter.DEFAULT;
+let currentFilter = FilterType.DEFAULT;
 let pictures = [];
 
 const imgFilter = document.querySelector('.img-filters');
 
 const getSortedPictures = () => {
   switch (currentFilter) {
-    case Filter.RANDOM:
+    case FilterType.RANDOM:
       return [...pictures].sort(getSortRandomly).slice(0, PICTURE_COUNT);
-    case Filter.DISCUSSED:
+    case FilterType.DISCUSSED:
       return [...pictures].sort(getSortByComments);
     default:
       return [...pictures];
