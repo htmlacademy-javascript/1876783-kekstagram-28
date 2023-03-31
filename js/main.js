@@ -1,15 +1,24 @@
-import './generatePhotoGallery/scale.js';
-import './generatePhotoGallery/effect.js';
-import { renderPhotoGallery } from './generatePhotoGallery/pictures-container.js';
-import { submitUserForm, closeImgForm } from './generatePhotoGallery/user-form.js';
-import { renderBigPicture } from './generatePhotoGallery/view-big-picture.js';
-import { getData } from './api.js';
-import { showAlert } from './util.js';
+import './generatePhotoGallery/img-upload.js';
+import {
+  showAlert,
+  getData,
+  debounce,
+  renderPhotoGallery,
+  onClickImgFilter,
+  getSortedPictures,
+  activateFilter,
+  submitUserForm,
+  closeImgForm
+} from './generatePhotoGallery/index.js';
+
+const RERENDER_DELAY = 500;
 
 getData()
   .then((pictures) => {
     renderPhotoGallery(pictures);
-    renderBigPicture(pictures);
+    activateFilter(pictures);
+    onClickImgFilter(debounce(() => renderPhotoGallery(getSortedPictures()), RERENDER_DELAY));
+
   })
   .catch((err) => {
     showAlert(err.message);

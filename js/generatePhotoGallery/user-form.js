@@ -1,15 +1,18 @@
-import { scaleForm } from './scale.js';
-import { resetEffects } from './effect.js';
-import { showAlert } from '../util.js';
-import { sendData } from '../api.js';
+import {
+  isEscPressed,
+  showAlert,
+  sendData,
+  scaleForm,
+  resetEffects
+} from './index.js';
 
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_DESCRIPTION_LENGTH = 140;
 const MAX_HASHTAGS_COUNT = 5;
 
 const SubmitButtonText = {
-  SEND: 'Сохранить',
-  SENDING: 'Сохраняю...'
+  SAVE: 'Сохранить',
+  SAVING: 'Сохраняю...'
 };
 
 const imgUpload = document.querySelector('#upload-file');
@@ -24,14 +27,14 @@ const sendSuccessTemplate = document.querySelector('#success').content;
 const sendErrorTemplate = document.querySelector('#error').content;
 
 const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscPressed) {
     evt.preventDefault();
     closeImgForm();
   }
 };
 
 const onFieldKeydown = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscPressed) {
     evt.stopPropagation();
   }
 };
@@ -44,12 +47,12 @@ const pristine = new Pristine(form, {
 
 const blockSubmitButton = () => {
   submitButton.disabled = true;
-  submitButton.textContent = SubmitButtonText.SENDING;
+  submitButton.textContent = SubmitButtonText.SAVING;
 };
 
 const unblockSubmitButton = () => {
   submitButton.disabled = false;
-  submitButton.textContent = SubmitButtonText.SEND;
+  submitButton.textContent = SubmitButtonText.SAVE;
 };
 
 function openImgForm() {
@@ -102,11 +105,11 @@ pristine.addValidator(
   'Неправильно указаны хэш-теги'
 );
 
-const descriptionValid = (value) => value.length <= MAX_DESCRIPTION_LENGTH;
+const validateDescription = (value) => value.length <= MAX_DESCRIPTION_LENGTH;
 
 pristine.addValidator(
   descriptionField,
-  descriptionValid,
+  validateDescription,
   'Максимальная длина 140 символов'
 );
 
@@ -128,10 +131,11 @@ function closeWindowSuccessSend(evt) {
   const success = document.querySelector('.success');
   const successButton = document.querySelector('.success__button');
 
-  if (evt.target === successButton || evt.target === success || evt.key === 'Escape') {
+  if (evt.target === successButton || evt.target === success || isEscPressed) {
     evt.preventDefault();
     success.remove();
-    success.removeEventListener('click', closeWindowSuccessSend);
+    document.removeEventListener('keydown', closeWindowSuccessSend);
+    document.removeEventListener('click', closeWindowSuccessSend);
   }
 }
 
@@ -139,9 +143,12 @@ function closeWindowErrorSend(evt) {
   const error = document.querySelector('.error');
   const errorButton = document.querySelector('.error__button');
 
-  if (evt.target === errorButton || evt.target === error || evt.key === 'Escape') {
+  if (evt.target === errorButton || evt.target === error || isEscPressed) {
+    evt.preventDefault();
     error.remove();
-    error.removeEventListener('click', closeWindowErrorSend);
+    document.removeEventListener('click', closeWindowErrorSend);
+    form.removeEventListener('keydown', closeWindowErrorSend);
+    error.removeEventListener('keydown', onFieldKeydown);
   }
 }
 

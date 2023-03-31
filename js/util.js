@@ -1,36 +1,6 @@
 const ALERT_SHOW_TIME = 5000;
 
-const getRandomInteger = (min, max) => {
-  const lower = Math.ceil(Math.min(min, max));
-  const upper = Math.floor(Math.max(min, max));
-  const result = Math.random() * (upper - lower + 1) + lower;
-  return Math.floor(result);
-};
-
-function getRandomUniqueInteger(min, max) {
-  const previousValues = [];
-
-  return function () {
-    let currentValue = getRandomInteger(min, max);
-    if (previousValues.length >= (max - min + 1)) {
-      return null;
-    }
-    while (previousValues.includes(currentValue)) {
-      currentValue = getRandomInteger(min, max);
-    }
-    previousValues.push(currentValue);
-    return currentValue;
-  };
-}
-
-const getUniqueInteger = () => {
-  let lastGeneratedInteger = 0;
-
-  return function () {
-    lastGeneratedInteger += 1;
-    return lastGeneratedInteger;
-  };
-};
+const isEscPressed = (evt) => evt.key === 'Escape';
 
 const makeElement = (tegName, className, text) => {
   const element = document.createElement(tegName);
@@ -62,10 +32,24 @@ const showAlert = (message) => {
   }, ALERT_SHOW_TIME);
 };
 
+function debounce(callback, timeoutDelay) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+const getSortRandomly = () => Math.random() - 0.5;
+
+const getSortByComments = (pictureA, pictureB) => pictureB.comments.length - pictureA.comments.length;
+
 export {
-  getRandomInteger,
-  getRandomUniqueInteger,
-  getUniqueInteger,
+  isEscPressed,
   makeElement,
-  showAlert
+  showAlert,
+  debounce,
+  getSortRandomly,
+  getSortByComments
 };

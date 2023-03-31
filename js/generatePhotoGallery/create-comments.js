@@ -1,9 +1,8 @@
-import { makeElement } from '../util.js';
+import { makeElement } from './index.js';
 
 const COUNT_PER_SHOW = 5;
 const PICTURE_WIDTH = 35;
 const PICTURE_HEIGHT = 35;
-
 
 const socialComments = document.querySelector('.social__comments');
 const commentsLoaderButton = document.querySelector('.comments-loader');
@@ -30,6 +29,7 @@ const createComments = ({ avatar, name, message }) => {
 const showComments = (currentComments) => {
   comments = currentComments;
   showenComments += COUNT_PER_SHOW;
+
   if (showenComments >= comments.length) {
     commentsLoaderButton.classList.add('hidden');
     showenComments = comments.length;
@@ -42,6 +42,7 @@ const showComments = (currentComments) => {
     const commentItem = createComments(comments[i]);
     fragment.append(commentItem);
   }
+
   socialComments.innerHtml = '';
   socialComments.append(fragment);
   socialCommentCount.textContent = `${showenComments} из ${comments.length} комментариев`;
@@ -53,4 +54,4 @@ const hiddenComments = () => {
   showenComments = 0;
 };
 
-export { createComments, showComments, hiddenComments };
+export { showComments, hiddenComments };
