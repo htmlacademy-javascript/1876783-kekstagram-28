@@ -1,5 +1,9 @@
-import { createPhoto } from './create-big-photo.js';
-import { showComments, hiddenComments } from './create-comments.js';
+import {
+  isEscPressed,
+  createPhoto,
+  showComments,
+  hiddenComments
+} from './index.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
@@ -7,7 +11,7 @@ const socialCaption = bigPicture.querySelector('.social__caption');
 const body = document.querySelector('body');
 
 const onDocumentKeydown = (evt) => {
-  if (evt.key === 'Escape') {
+  if (isEscPressed) {
     evt.preventDefault();
     closeBigPicture();
   }
@@ -27,7 +31,6 @@ function closeBigPicture() {
 }
 
 const renderBigPicture = (photoGallery) => {
-
   const pictures = document.querySelectorAll('.picture');
 
   pictures.forEach((picture, index) => {

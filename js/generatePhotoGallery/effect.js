@@ -85,16 +85,19 @@ const onEffectsChange = (evt) => {
   if (!evt.target.classList.contains('effects__radio')) {
     return;
   }
+
   currentEffect = EFFECTS.find((effect) => effect.name === evt.target.value);
-  image.classList.add(`effects__preview--${currentEffect.name}`);
+  image.className = `effects__preview--${currentEffect.name}`;
   updateSlider();
 };
 
 const onSliderUpdate = () => {
   const sliderValue = sliderElement.noUiSlider.get();
+
   image.style.filter = isDefault()
     ? DEFAULT_EFFECT.style
     : `${currentEffect.style}(${sliderValue}${currentEffect.unit})`;
+
   effectLevelValue.value = sliderValue;
 };
 

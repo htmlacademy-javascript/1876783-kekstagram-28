@@ -18,6 +18,7 @@ const scaleImg = (value) => {
 const smallerrButtonClick = () => {
   const currentValue = parseInt(changingSizeInput.value, RADIX);
   let newValue = currentValue - STEP_SCALE;
+
   if (newValue < MIN_SCALE) {
     newValue = MIN_SCALE;
   }
@@ -27,6 +28,7 @@ const smallerrButtonClick = () => {
 const biggerButtonClick = () => {
   const currentValue = parseInt(changingSizeInput.value, RADIX);
   let newValue = currentValue + STEP_SCALE;
+
   if (newValue > MAX_SCALE) {
     newValue = MAX_SCALE;
   }
@@ -34,6 +36,7 @@ const biggerButtonClick = () => {
 };
 
 decreasingButton.addEventListener('click', () => smallerrButtonClick());
+
 increasingButton.addEventListener('click', () => biggerButtonClick());
 
 const scaleForm = () => scaleImg(DEFAULT_VALUE);

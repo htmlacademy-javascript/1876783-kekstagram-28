@@ -1,10 +1,11 @@
-import {renderBigPicture} from './view-big-picture.js';
+import { renderBigPicture } from './index.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content;
 
 const renderPhotoGallery = (photogallery) => {
-  picturesContainer.querySelectorAll('.picture').forEach((element)=>element.remove());
+  picturesContainer.querySelectorAll('.picture').forEach((element) => element.remove());
+
   const photoFragment = document.createDocumentFragment();
 
   photogallery.forEach(({ url, description, comments, likes }) => {
@@ -15,6 +16,7 @@ const renderPhotoGallery = (photogallery) => {
     picture.querySelector('.picture__likes').textContent = likes;
     photoFragment.append(picture);
   });
+
   picturesContainer.append(photoFragment);
   renderBigPicture(photogallery);
 };

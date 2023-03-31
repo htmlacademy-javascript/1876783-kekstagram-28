@@ -1,25 +1,24 @@
+import { getSortRandomly, getSortByComments } from './index.js';
+
 const PICTURE_COUNT = 10;
+
 const Filter = {
   DEFAULT: 'filter-default',
   RANDOM: 'filter-random',
   DISCUSSED: 'filter-discussed'
 };
 
-const imgFilter = document.querySelector('.img-filters');
-
 let currentFilter = Filter.DEFAULT;
 let pictures = [];
 
-const sortRandomly = () => Math.random() - 0.5;
-
-const sortByComments = (pictureA, pictureB) => pictureB.comments.length - pictureA.comments.length;
+const imgFilter = document.querySelector('.img-filters');
 
 const getSortedPictures = () => {
   switch (currentFilter) {
     case Filter.RANDOM:
-      return [...pictures].sort(sortRandomly).slice(0, PICTURE_COUNT);
+      return [...pictures].sort(getSortRandomly).slice(0, PICTURE_COUNT);
     case Filter.DISCUSSED:
-      return [...pictures].sort(sortByComments);
+      return [...pictures].sort(getSortByComments);
     default:
       return [...pictures];
   }
@@ -31,6 +30,7 @@ const onClickImgFilter = (cb) => {
     if (!evt.target.classList.contains('img-filters__button')) {
       return;
     }
+
     const clickedButton = evt.target;
     if (clickedButton.id === currentFilter) {
       return;
@@ -45,9 +45,9 @@ const onClickImgFilter = (cb) => {
   });
 };
 
-const init = (loadedPictures) => {
+const activateFilter = (loadedPictures) => {
   imgFilter.classList.remove('img-filters--inactive');
   pictures = [...loadedPictures];
 };
 
-export { onClickImgFilter, getSortedPictures, init };
+export { onClickImgFilter, getSortedPictures, activateFilter };
