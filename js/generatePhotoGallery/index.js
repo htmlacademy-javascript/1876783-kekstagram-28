@@ -1,4 +1,4 @@
-import { isEscPressed, makeElement, showAlert, debounce, getSortRandomly, getSortByComments } from '../util.js';
+import { isEscPressed, isEnterPressed, makeElement, showAlert, debounce, getSortRandomly, getSortByComments } from '../util.js';
 import { getData, sendData } from '../api.js';
 import { renderPhotoGallery } from './pictures-container.js';
 import { onClickImgFilter, getSortedPictures, activateFilter } from './sort.js';
@@ -11,6 +11,7 @@ import { resetEffects } from './effect.js';
 
 export {
   isEscPressed,
+  isEnterPressed,
   makeElement,
   showAlert,
   debounce,
