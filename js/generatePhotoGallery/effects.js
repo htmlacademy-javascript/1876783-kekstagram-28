@@ -52,7 +52,7 @@ const DEFAULT_EFFECT = EFFECTS[0];
 let currentEffect = DEFAULT_EFFECT;
 
 const sliderContainer = document.querySelector('.img-upload__effect-level');
-const sliderElement = document.querySelector('.effect-level__slider');
+const slider = document.querySelector('.effect-level__slider');
 const imgEffects = document.querySelector('.effects');
 const image = document.querySelector('.img-upload__preview img');
 const effectLevelValue = document.querySelector('.effect-level__value');
@@ -64,7 +64,7 @@ const showSlider = () => sliderContainer.classList.remove('hidden');
 const hideSlider = () => sliderContainer.classList.add('hidden');
 
 const updateSlider = () => {
-  sliderElement.noUiSlider.updateOptions({
+  slider.noUiSlider.updateOptions({
     range: {
       min: currentEffect.min,
       max: currentEffect.max,
@@ -92,7 +92,7 @@ const onEffectsChange = (evt) => {
 };
 
 const onSliderUpdate = () => {
-  const sliderValue = sliderElement.noUiSlider.get();
+  const sliderValue = slider.noUiSlider.get();
 
   image.style.filter = isDefault()
     ? DEFAULT_EFFECT.style
@@ -106,7 +106,7 @@ const resetEffects = () => {
   updateSlider();
 };
 
-noUiSlider.create(sliderElement, {
+noUiSlider.create(slider, {
   range: {
     min: DEFAULT_EFFECT.min,
     max: DEFAULT_EFFECT.max,
@@ -120,6 +120,6 @@ hideSlider();
 
 imgEffects.addEventListener('change', onEffectsChange);
 
-sliderElement.noUiSlider.on('update', onSliderUpdate);
+slider.noUiSlider.on('update', onSliderUpdate);
 
 export { resetEffects };

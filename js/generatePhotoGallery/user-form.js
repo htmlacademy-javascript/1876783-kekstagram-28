@@ -1,5 +1,6 @@
 import {
   isEscPressed,
+  isEnterPressed,
   showAlert,
   sendData,
   scaleForm,
@@ -15,7 +16,12 @@ const SubmitButtonText = {
   SAVING: 'Сохраняю...'
 };
 
-const imgUpload = document.querySelector('#upload-file');
+const ValidationErrorText = {
+  ERROR_HASHTAGS: 'Неправильно указаны хэш-теги',
+  ERROR_DESCRIPTION: 'Максимальная длина 140 символов'
+};
+
+const imgUpload = document.querySelector('.img-upload__input');
 const form = document.querySelector('.img-upload__form');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
@@ -27,14 +33,14 @@ const sendSuccessTemplate = document.querySelector('#success').content;
 const sendErrorTemplate = document.querySelector('#error').content;
 
 const onDocumentKeydown = (evt) => {
-  if (isEscPressed) {
+  if (isEscPressed(evt)) {
     evt.preventDefault();
     closeImgForm();
   }
 };
 
 const onFieldKeydown = (evt) => {
-  if (isEscPressed) {
+  if (isEscPressed(evt)) {
     evt.stopPropagation();
   }
 };
@@ -72,7 +78,7 @@ function closeImgForm() {
 }
 
 imgFormCancelButton.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Enter') {
+  if (isEnterPressed(evt)) {
     closeImgForm();
   }
 });
@@ -102,7 +108,7 @@ const validateHashtags = (value) => {
 pristine.addValidator(
   hashtagsField,
   validateHashtags,
-  'Неправильно указаны хэш-теги'
+  ValidationErrorText.ERROR_HASHTAGS
 );
 
 const validateDescription = (value) => value.length <= MAX_DESCRIPTION_LENGTH;
@@ -110,7 +116,7 @@ const validateDescription = (value) => value.length <= MAX_DESCRIPTION_LENGTH;
 pristine.addValidator(
   descriptionField,
   validateDescription,
-  'Максимальная длина 140 символов'
+  ValidationErrorText.ERROR_DESCRIPTION
 );
 
 const sendFragment = document.createDocumentFragment();
@@ -118,24 +124,28 @@ const sendFragment = document.createDocumentFragment();
 const renderSendSuccess = () => {
   const sendSuccess = sendSuccessTemplate.cloneNode(true);
   sendFragment.append(sendSuccess);
-  document.querySelector('body').append(sendFragment);
+  body.append(sendFragment);
 };
 
 const renderSendError = () => {
   const sendError = sendErrorTemplate.cloneNode(true);
   sendFragment.append(sendError);
-  document.querySelector('body').append(sendFragment);
+  body.append(sendFragment);
 };
 
 function closeWindowSuccessSend(evt) {
   const success = document.querySelector('.success');
   const successButton = document.querySelector('.success__button');
 
-  if (evt.target === successButton || evt.target === success || isEscPressed) {
+  if (evt.target === successButton || evt.target === success) {
+    success.remove();
+    document.removeEventListener('click', closeWindowSuccessSend);
+  }
+
+  if (isEscPressed(evt)) {
     evt.preventDefault();
     success.remove();
     document.removeEventListener('keydown', closeWindowSuccessSend);
-    document.removeEventListener('click', closeWindowSuccessSend);
   }
 }
 
@@ -143,10 +153,14 @@ function closeWindowErrorSend(evt) {
   const error = document.querySelector('.error');
   const errorButton = document.querySelector('.error__button');
 
-  if (evt.target === errorButton || evt.target === error || isEscPressed) {
-    evt.preventDefault();
+  if (evt.target === errorButton || evt.target === error) {
     error.remove();
     document.removeEventListener('click', closeWindowErrorSend);
+  }
+
+  if (isEscPressed(evt)) {
+    evt.preventDefault();
+    error.remove();
     form.removeEventListener('keydown', closeWindowErrorSend);
     error.removeEventListener('keydown', onFieldKeydown);
   }

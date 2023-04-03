@@ -1,5 +1,6 @@
 import {
   isEscPressed,
+  isEnterPressed,
   createPhoto,
   showComments,
   hiddenComments
@@ -11,7 +12,7 @@ const socialCaption = bigPicture.querySelector('.social__caption');
 const body = document.querySelector('body');
 
 const onDocumentKeydown = (evt) => {
-  if (isEscPressed) {
+  if (isEscPressed(evt)) {
     evt.preventDefault();
     closeBigPicture();
   }
@@ -47,7 +48,7 @@ const renderBigPicture = (photoGallery) => {
 bigPictureCancel.addEventListener('click', () => closeBigPicture());
 
 bigPictureCancel.addEventListener('keydown', (evt) => {
-  if (evt.key === 'Enter') {
+  if (isEnterPressed(evt)) {
     closeBigPicture();
   }
 });

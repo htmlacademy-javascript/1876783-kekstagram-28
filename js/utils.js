@@ -2,6 +2,8 @@ const ALERT_SHOW_TIME = 5000;
 
 const isEscPressed = (evt) => evt.key === 'Escape';
 
+const isEnterPressed = (evt) => evt.key === 'Enter';
+
 const makeElement = (tegName, className, text) => {
   const element = document.createElement(tegName);
   element.classList.add(className);
@@ -47,6 +49,7 @@ const getSortByComments = (pictureA, pictureB) => pictureB.comments.length - pic
 
 export {
   isEscPressed,
+  isEnterPressed,
   makeElement,
   showAlert,
   debounce,
