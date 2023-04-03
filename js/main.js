@@ -1,15 +1,9 @@
 import './generatePhotoGallery/img-upload.js';
-import {
-  showAlert,
-  getData,
-  debounce,
-  renderPhotoGallery,
-  onClickImgFilter,
-  getSortedPictures,
-  activateFilter,
-  submitUserForm,
-  closeImgForm
-} from './generatePhotoGallery/index.js';
+import { getData } from './api.js';
+import { renderPhotoGallery } from './generatePhotoGallery/pictures-container.js';
+import { onClickImgFilter, getSortedPictures, activateFilter } from './generatePhotoGallery/sort.js';
+import { debounce, showAlert } from './utils.js';
+import { submitUserForm, closeImgForm } from './generatePhotoGallery/user-form.js';
 
 const RERENDER_DELAY = 500;
 

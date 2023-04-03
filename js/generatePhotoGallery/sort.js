@@ -1,4 +1,5 @@
-import { getSortRandomly, getSortByComments } from './index.js';
+import { getSortRandomly, getSortByComments } from '../utils.js';
+
 
 const PICTURE_COUNT = 10;
 
