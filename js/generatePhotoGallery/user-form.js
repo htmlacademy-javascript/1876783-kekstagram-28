@@ -16,6 +16,11 @@ const SubmitButtonText = {
   SAVING: 'Сохраняю...'
 };
 
+const ValidationErrorText = {
+  ERROR_HASHTAGS: 'Неправильно указаны хэш-теги',
+  ERROR_DESCRIPTION: 'Максимальная длина 140 символов'
+};
+
 const imgUpload = document.querySelector('.img-upload__input');
 const form = document.querySelector('.img-upload__form');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
@@ -103,7 +108,7 @@ const validateHashtags = (value) => {
 pristine.addValidator(
   hashtagsField,
   validateHashtags,
-  'Неправильно указаны хэш-теги'
+  ValidationErrorText.ERROR_HASHTAGS
 );
 
 const validateDescription = (value) => value.length <= MAX_DESCRIPTION_LENGTH;
@@ -111,7 +116,7 @@ const validateDescription = (value) => value.length <= MAX_DESCRIPTION_LENGTH;
 pristine.addValidator(
   descriptionField,
   validateDescription,
-  'Максимальная длина 140 символов'
+  ValidationErrorText.ERROR_DESCRIPTION
 );
 
 const sendFragment = document.createDocumentFragment();
@@ -143,7 +148,6 @@ function closeWindowSuccessSend(evt) {
     document.removeEventListener('keydown', closeWindowSuccessSend);
   }
 }
-
 
 function closeWindowErrorSend(evt) {
   const error = document.querySelector('.error');
