@@ -1,11 +1,7 @@
-import {
-  isEscPressed,
-  isEnterPressed,
-  showAlert,
-  sendData,
-  scaleForm,
-  resetEffects
-} from './index.js';
+import { isEscPressed, isEnterPressed, showAlert } from '../utils.js';
+import { scaleForm, onButtonScaleClick } from './scale.js';
+import { resetEffects } from './effects.js';
+import { sendData } from '../api.js';
 
 const HASHTAG_REGEX = /^#[a-zа-яё0-9]{1,19}$/i;
 const MAX_DESCRIPTION_LENGTH = 140;
@@ -25,6 +21,7 @@ const imgUpload = document.querySelector('.img-upload__input');
 const form = document.querySelector('.img-upload__form');
 const imgUploadOverlay = document.querySelector('.img-upload__overlay');
 const body = document.querySelector('body');
+const scale = document.querySelector('.img-upload__scale');
 const imgFormCancelButton = imgUploadOverlay.querySelector('.img-upload__cancel');
 const descriptionField = imgUploadOverlay.querySelector('.text__description');
 const hashtagsField = imgUploadOverlay.querySelector('.text__hashtags');
@@ -66,6 +63,7 @@ function openImgForm() {
   document.addEventListener('keydown', onDocumentKeydown);
   body.classList.add('modal-open');
   scaleForm();
+  scale.addEventListener('click', onButtonScaleClick);
 }
 
 function closeImgForm() {
@@ -75,6 +73,7 @@ function closeImgForm() {
   pristine.reset();
   body.classList.remove('modal-open');
   document.removeEventListener('keydown', onDocumentKeydown);
+  scale.removeEventListener('click', onButtonScaleClick);
 }
 
 imgFormCancelButton.addEventListener('keydown', (evt) => {
@@ -93,7 +92,10 @@ hashtagsField.addEventListener(('keydown'), (evt) => onFieldKeydown(evt));
 
 const hashtagsValidCount = (hashtags) => hashtags.length <= MAX_HASHTAGS_COUNT;
 
-const hashtagUnique = (hashtags) => hashtags.length === new Set(hashtags).size;
+const hashtagUnique = (hashtags) => {
+  const lowerCaseHashtags = hashtags.map((hashtag) => hashtag.toLowerCase());
+  return lowerCaseHashtags.length === new Set(lowerCaseHashtags).size;
+};
 
 const isHashtagValid = (hashtag) => HASHTAG_REGEX.test(hashtag);
 

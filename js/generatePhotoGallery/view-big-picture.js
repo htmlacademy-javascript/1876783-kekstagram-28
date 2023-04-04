@@ -1,10 +1,6 @@
-import {
-  isEscPressed,
-  isEnterPressed,
-  createPhoto,
-  showComments,
-  hiddenComments
-} from './index.js';
+import { isEscPressed, isEnterPressed } from '../utils.js';
+import { showComments, hiddenComments } from './create-comments.js';
+import { createPhoto } from './create-big-photo.js';
 
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureCancel = document.querySelector('.big-picture__cancel');

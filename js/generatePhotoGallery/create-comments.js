@@ -1,4 +1,4 @@
-import { makeElement } from './index.js';
+import { makeElement } from '../utils.js';
 
 const COUNT_PER_SHOW = 5;
 const PICTURE_WIDTH = 35;
